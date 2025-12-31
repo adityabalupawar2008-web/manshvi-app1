@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Manshvi ❤️</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#ffb3b3, #ffd6d6);
+}
+
+/* floating hearts */
+.heart {
+  position: fixed;
+  color: red;
+  font-size: 24px;
+  animation: float 6s linear infinite;
+}
+@keyframes float {
+  from { bottom: -50px; opacity: 1; }
+  to { bottom: 110%; opacity: 0; }
+}
+
+/* center card */
+#card {
+  max-width: 90%;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* title */
+h1 {
+  text-align: center;
+  color: white;
+}
+
+/* buttons */
+button {
+  padding: 12px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.yes { background: #ff4d6d; color: white; }
+.no  { background: #555; color: white; }
+
+.gif {
+  max-width: 100%;
+  display: none;
+  margin: 10px auto;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  border-radius: 10px;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.hidden { display: none; }
+
+</style>
+</head>
+
+<body>
+
+<h1>Manshvi ❤️</h1>
+
+<div id="card">
+
+<p id="message">
+hello..! Manshvi ...umm... <br>
+mujhe kuch kehna tha .... <br>
+mujhe.. tujhepe crush hai .... <br>
+1 saal se jada se ..... <br>
+mai kya bolu samajh nhi arha ... <br>
+vaise sorry ... <br>
+mujhe pta hai ye bohot weird hai .... <br>
+per.... <br>
+mujhe pta hai mai nhi bol paunga ye sab ... <br>
+isliye ye app bnaya .... <br>
+sorry .. <br>
+mai kya bolu samajh nhi arha hai ... <br>
+per ... <br>
+<b>i love uuuuuu ❤️</b>
+</p>
+
+<img id="yesGif" class="gif" src="yes.gif">
+<img id="noGif"  class="gif" src="no.gif">
+
+<div id="buttons">
+  <button class="yes" onclick="answer('YES')">Yes ❤️</button>
+  <button class="no" onclick="answer('NO')">No 😔</button>
+</div>
+
+<div id="replyBox" class="hidden">
+  <p>You can write something if you want 💌</p>
+  <textarea id="replyText" placeholder="Type your message here..."></textarea>
+  <button class="yes" onclick="sendForm()">Send 💌</button>
+</div>
+
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+/* floating hearts */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random() * 100 + "%";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}, 600);
+
+/* form data */
+let finalAnswer = "";
+
+function answer(val) {
+  finalAnswer = val;
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("replyBox").classList.remove("hidden");
+
+  if (val === "YES") {
+    document.getElementById("yesGif").style.display = "block";
+    document.getElementById("message").innerHTML +=
+      "<br><br><b>Thank you sooo much ❤️</b><br>I will try my best now...";
+  } else {
+    document.getElementById("noGif").style.display = "block";
+    document.getElementById("message").innerHTML +=
+      "<br><br>koi baat nhi... mai samajh sakta hu 😔<br>friends hi rehte hai...";
+  }
+
+  /* play music on interaction */
+  const music = document.getElementById("music");
+  music.play().catch(()=>{});
+}
+
+function sendForm() {
+  const text = document.getElementById("replyText").value;
+
+  fetch("https://formspree.io/f/mykyrrlr", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      answer: finalAnswer,
+      message: text
+    })
+  }).then(() => {
+    alert("Message sent ❤️");
+  });
+}
+</script>
+
+</body>
+</html>
